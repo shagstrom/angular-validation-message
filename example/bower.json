@@ -1,0 +1,9 @@
+{
+  "name": "angular-validation-message-example",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "~1.11.0",
+    "tooltipster": "~3.3.0",
+    "angular-validation-message": "0.1.0"
+  }
+}

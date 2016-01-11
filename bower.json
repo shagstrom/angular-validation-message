@@ -1,0 +1,29 @@
+{
+  "name": "angular-validation-message",
+  "version": "0.1.0",
+  "authors": [
+    "Simon Hagström <simon.hagstrom@gmail.com>"
+  ],
+  "description": "Displaying validation messages based on ngForm validation",
+  "main": [
+    "angular-validation-message.js",
+    "angular-validation-message.css"
+  ],
+  "moduleType": [],
+  "keywords": [
+    "angular",
+    "validation",
+    "messages"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "bower_components",
+    "example"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-translate": "~2.8.1"
+  }
+}

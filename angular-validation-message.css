@@ -1,0 +1,12 @@
+.validation-tooltip {
+	color: white;
+	background: red;
+	font-size: 1em;
+	line-height: 1.2;
+	padding: 3px 10px;
+	border-radius: 3px;
+}
+
+.validation-message {
+	color: red;
+}
