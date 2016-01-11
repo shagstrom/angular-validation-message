@@ -4,7 +4,17 @@ Displaying validation messages based on [ngForm](https://docs.angularjs.org/api/
 
 Using [angular-translate](https://angular-translate.github.io/) to resolve error message.
 
-Tooltip and inline validation messages available. Using [Tooltipster](http://iamceege.github.io/tooltipster/) to display toolitp messages (other tooltip inplementations will be supported in the future).
+Tooltip and inline validation messages available.
+
+Using [Tooltipster](http://iamceege.github.io/tooltipster/) to display toolitp messages (other tooltip inplementations will be supported in the future).
+
+Inline messages template can be customized with:
+
+    validationMessagesSettingsProvider.setMessagesTemplate(...);
+
+Default messages template is:
+
+    <span ng-if="submitted" ng-repeat="message in messages" class="validation-message">{{message}}</span>
 
 Example:
 
