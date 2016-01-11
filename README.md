@@ -6,7 +6,9 @@ Using [angular-translate](https://angular-translate.github.io/) to resolve error
 
 Tooltip and inline validation messages available.
 
-Using [Tooltipster](http://iamceege.github.io/tooltipster/) to display toolitp messages (other tooltip inplementations will be supported in the future).
+By default, using title attribute to dipslay tooltip message. Can be extended to support more advanced tooltips. [Tooltipster](http://iamceege.github.io/tooltipster/) support is included, and other tooltip inplementations will be supported in the future. For example to use tooltipster do this:
+
+    validationMessagesSettingsProvider.setTooltipType('tooltipster');
 
 Inline messages template can be customized with:
 
