@@ -14,7 +14,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			tooltipType = theTooltipType;
 		};
 
-		this.$get = function($injector) {
+		this.$get = [ '$injector', function($injector) {
 			return {
 				messagesTemplate: messagesTemplate,
 				tooltipService: function() {
@@ -22,11 +22,11 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 					return $injector.get(serviceName);
 				}
 			};
-		};
+		}];
 
 	})
 
-	.factory('validationMessageService', function($translate) {
+	.factory('validationMessageService', [ '$translate', function($translate) {
 
 		function translate(text) {
 			var translation = $translate.instant(text);
@@ -66,7 +66,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			getMessages: getMessages
 		};
 
-	})
+	}])
 
 	/**
 		Default factory for creating tooltip
@@ -79,7 +79,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 		function destroy(element) {
 			element.attr('title', message);
-		};
+		}
 
 		return {
 			create: create,
@@ -106,7 +106,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 		function destroy(element) {
 			element.tooltipster('destroy');
-		};
+		}
 
 		return {
 			create: create,
@@ -115,7 +115,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 	})	
 
-	.factory('validationTooltipService', function(validationMessagesSettings) {
+	.factory('validationTooltipService', [ 'validationMessagesSettings', function(validationMessagesSettings) {
 
 		var tooltipService = validationMessagesSettings.tooltipService();
 
@@ -129,16 +129,16 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 				tooltipService.destroy(element);
 				element.removeClass('has-validation-tooltip');
 			}
-		};
+		}
 
 		return {
 			create: create,
 			destroy: destroy
 		};
 
-	})
+	}])
 
-	.directive('validationTooltip', function (validationMessageService, validationTooltipService) {
+	.directive('validationTooltip', [ 'validationMessageService', 'validationTooltipService', function (validationMessageService, validationTooltipService) {
 
 		return {
 			restrict: 'A',
@@ -170,9 +170,9 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			}
 		};
 
-	})
+	}])
 
-	.directive('validationMessages', function (validationMessageService, validationMessagesSettings) {
+	.directive('validationMessages', [ 'validationMessageService', 'validationMessagesSettings', function (validationMessageService, validationMessagesSettings) {
 
 		return {
 			restrict: 'EA',
@@ -195,4 +195,4 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			}
 		};
 
-	});
+	}]);
