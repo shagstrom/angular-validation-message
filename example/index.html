@@ -18,17 +18,22 @@
 		<h1>Angular validation message example</h1>
 		<form name="exampleForm" novalidate ng-submit="false">
 			<p>
-				<label>Field with tooltip validation message</label>
-				<input type="text" required name="exampleField1" ng-model="exampleField1" validation-tooltip />
-			</p>
-			<p>
 				<label>Field with inline validation message</label>
-				<input type="text" required name="exampleField2" ng-model="exampleField2" />
-				<span validation-messages="exampleField2"></span>
+				<input type="text" required name="exampleField1" ng-model="exampleField1" />
+				<span validation-messages="exampleField1"></span>
 			</p>
 			<p>
 				<label>Field with tooltip validation message below</label>
-				<input type="text" required name="exampleField3" ng-model="exampleField3" validation-tooltip validation-options="{position: 'bottom'}" />
+				<input type="text" required name="exampleField2" ng-model="exampleField2" validation-tooltip validation-options="{position: 'bottom'}" />
+			</p>
+			<p>
+				<label>Field with tooltip validation message before submit</label>
+				<input type="text" required name="exampleField3" ng-model="exampleField3" validation-tooltip validation-options="{showBeforeSubmit: true}" />
+			</p>
+			<p>
+				<label>Field with inline validation message before submit</label>
+				<input type="text" required name="exampleField4" ng-model="exampleField4" />
+				<span validation-messages="exampleField4" validation-options="{showBeforeSubmit: true}"></span>
 			</p>
 			<p>
 				<button type="submit">Go</button>
