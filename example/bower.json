@@ -4,6 +4,6 @@
   "dependencies": {
     "jquery": "~1.11.0",
     "tooltipster": "~3.3.0",
-    "angular-validation-message": "0.1.0"
+    "angular-validation-message": "1.0.0"
   }
 }
