@@ -3,7 +3,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 	.provider('validationMessagesSettings', function() {
 
 		// Default template
-		var messagesTemplate = '<span ng-if="submitted" ng-repeat="message in messages" class="validation-message">{{message}}</span>';
+		var messagesTemplate = '<span ng-if="showMessage" ng-repeat="message in messages" class="validation-message">{{message}}</span>';
 		var tooltipType = 'title';
 
 		this.setMessagesTemplate = function(theMessagesTemplate) {
@@ -152,7 +152,15 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 				var formCtrl = ctrls[0], ngModelCtrl = ctrls[1];
 
 				var updateErrorMessage = function () {
+					var showMessage = false;
+					if(scope.validationOptions.showBeforeSubmit) {
+						showMessage = ngModelCtrl.$dirty;
+					}
 					if (formCtrl.$submitted) {
+						showMessage = true;
+					}
+
+					if (showMessage) {
 						var message = validationMessageService.getMessages(formCtrl.$name, ngModelCtrl.$name, ngModelCtrl.$error).join('\n');
 						if (message) {
 							validationTooltipService.create(element, message, scope.validationOptions);
@@ -164,6 +172,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 					}
 				};
 
+				scope.$watch(function() { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
 				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
 				scope.$watch(function() { return ngModelCtrl.$error; }, updateErrorMessage, true);
 
@@ -179,19 +188,29 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			replace: false,
 			require: '^form',
 			scope: {
-				fieldName: '@validationMessages'
+				fieldName: '@validationMessages',
+				validationOptions: '=?'
 			},
 			template: validationMessagesSettings.messagesTemplate,
 			link: function (scope, element, attr, formCtrl) {
+				var ngModelCtrl = formCtrl[scope.fieldName];
+				scope.validationOptions = scope.validationOptions || {};
 
 				var updateErrorMessage = function () {
-					scope.submitted = formCtrl.$submitted;
+					if(scope.validationOptions.showBeforeSubmit) {
+						scope.showMessage = ngModelCtrl.$dirty;
+					}
+					if (formCtrl.$submitted) {
+						scope.showMessage = true;
+					}
 					scope.messages = validationMessageService.getMessages(formCtrl.$name, scope.fieldName, formCtrl[scope.fieldName].$error);
 				};
 
 				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
 				scope.$watch(function() { return formCtrl[scope.fieldName].$error; }, updateErrorMessage, true);
-
+				if (scope.validationOptions.showBeforeSubmit) {
+					scope.$watch(function () { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
+				}
 			}
 		};
 
