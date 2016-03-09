@@ -172,7 +172,8 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 					}
 				};
 
-				scope.$watch(function() { return formCtrl.$submitted || ngModelCtrl.$error; }, updateErrorMessage, true);
+				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
+				scope.$watch(function() { return ngModelCtrl.$error; }, updateErrorMessage, true);
 				if (scope.validationOptions.showBeforeSubmit) {
 					scope.$watch(function() { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
 				}
@@ -212,7 +213,8 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 					scope.messages = validationMessageService.getMessages(formCtrl.$name, scope.fieldName, formCtrl[scope.fieldName].$error);
 				};
 
-				scope.$watch(function() { return formCtrl.$submitted || formCtrl[scope.fieldName].$error; }, updateErrorMessage, true);
+				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
+				scope.$watch(function() { return formCtrl[scope.fieldName].$error; }, updateErrorMessage, true);
 				if (scope.validationOptions.showBeforeSubmit) {
 					scope.$watch(function () { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
 				}
