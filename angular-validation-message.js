@@ -157,7 +157,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 				var updateErrorMessage = function () {
 					var showMessage = false;
-					if (scope.validationOptions.showBeforeSubmit) {
+					if (scope.validationOptions && scope.validationOptions.showBeforeSubmit) {
 						showMessage = ngModelCtrl.$dirty;
 					}
 					if (formCtrl.$submitted) {
@@ -178,7 +178,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
 				scope.$watch(function() { return ngModelCtrl.$error; }, updateErrorMessage, true);
-				if (scope.validationOptions.showBeforeSubmit) {
+				if (scope.validationOptions && scope.validationOptions.showBeforeSubmit) {
 					scope.$watch(function() { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
 				}
 
@@ -203,12 +203,12 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			},
 			template: validationMessagesSettings.messagesTemplate,
 			link: function (scope, element, attr, formCtrl) {
+
 				var ngModelCtrl = formCtrl[scope.fieldName];
-				scope.validationOptions = scope.validationOptions || {};
 
 				var updateErrorMessage = function () {
 					scope.showMessage = false;
-					if (scope.validationOptions.showBeforeSubmit) {
+					if (scope.validationOptions && scope.validationOptions.showBeforeSubmit) {
 						scope.showMessage = ngModelCtrl.$dirty;
 					}
 					if (formCtrl.$submitted) {
@@ -219,7 +219,7 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 
 				scope.$watch(function() { return formCtrl.$submitted; }, updateErrorMessage, true);
 				scope.$watch(function() { return formCtrl[scope.fieldName].$error; }, updateErrorMessage, true);
-				if (scope.validationOptions.showBeforeSubmit) {
+				if (scope.validationOptions && scope.validationOptions.showBeforeSubmit) {
 					scope.$watch(function () { return ngModelCtrl.$dirty; }, updateErrorMessage, true);
 				}
 			}
