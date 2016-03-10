@@ -99,9 +99,13 @@ angular.module('shagstrom.angular-validation-message', ['pascalprecht.translate'
 			if (!element.tooltipster) {
 				throw "You need to load jquery.tooltipster.js";
 			}
-			var options = angular.extend(angular.copy(DEFAULT_OPTIONS), validationOptions, { content: message });
-			element.tooltipster(options);
-			element.tooltipster('show');
+			if (element.is('.tooltipstered')) {
+				element.tooltipster('content', message);
+			} else {
+				var options = angular.extend(angular.copy(DEFAULT_OPTIONS), validationOptions, { content: message });
+				element.tooltipster(options);
+				element.tooltipster('show');
+			}
 		}
 
 		function destroy(element) {
